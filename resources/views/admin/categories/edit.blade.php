@@ -1,41 +1,60 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('page_title', 'Edit Kategori')
+@section('page_subtitle', 'Mengubah data kategori event')
 
 @section('content')
 
-<div class="max-w-xl mx-auto py-10">
+<div class="max-w-2xl">
 
-    <h1 class="text-3xl font-bold mb-6">
-        Edit Kategori
-    </h1>
+    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm p-8">
 
-    <form action="{{ route('categories.update', $category->id) }}"
-        method="POST"
-        class="space-y-6 bg-white p-8 rounded-2xl shadow-md">
+        <form action="{{ route('categories.update', $category->id) }}"
+            method="POST"
+            class="space-y-6">
 
-        @csrf
-        @method('PUT')
+            @csrf
+            @method('PUT')
 
-        <div>
+            <!-- Nama Kategori -->
+            <div>
 
-            <label class="font-semibold block mb-2">
-                Nama Kategori
-            </label>
+                <label class="block mb-2 font-bold text-slate-700">
+                    Nama Kategori
+                </label>
 
-            <input type="text"
-                name="name"
-                value="{{ $category->name }}"
-                class="w-full border rounded-xl px-4 py-3">
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ $category->name }}"
+                    placeholder="Masukkan nama kategori"
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
 
-        </div>
+            </div>
 
-        <button
-            class="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold">
+            <!-- Button -->
+            <div class="flex gap-3">
 
-            Update
+                <button
+                    type="submit"
+                    class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition">
 
-        </button>
+                    Update
 
-    </form>
+                </button>
+
+                <a href="{{ route('categories.index') }}"
+                    class="px-6 py-3 bg-slate-100 rounded-2xl font-bold hover:bg-slate-200 transition">
+
+                    Kembali
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 

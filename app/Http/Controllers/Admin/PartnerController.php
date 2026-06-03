@@ -13,6 +13,7 @@ class PartnerController extends Controller
         $query = Partner::query();
 
         // SEARCH
+        // Jika ada parameter search pada request, maka query akan mencari data partner yang memiliki nama yang mirip dengan nilai search tersebut.
         if ($request->search) {
 
             $query->where('name', 'LIKE', '%' . $request->search . '%');
@@ -24,19 +25,18 @@ class PartnerController extends Controller
         return view('admin.partners.index', compact('partners'));
     }
 
+    #method create digunakan untuk menampilkan form input data baru
     public function create()
     {
         return view('admin.partners.create');
     }
 
+    #method store digunakan untuk menyimpan data baru ke database setelah dilakukan validasi.
     public function store(Request $request)
     {
-        $request->validate([
-
-            'name'=>'required',
-
-            'logo_url'=>'required'
-
+            $request->validate([
+            'name' => 'required',
+            'logo_url' => 'required|url'
         ]);
 
         Partner::create([
@@ -51,24 +51,24 @@ class PartnerController extends Controller
             ->with('success','Partner berhasil ditambahkan');
     }
 
+    #method show digunakan untuk menampilkan detail data partner
     public function show(Partner $partner)
     {
         return view('admin.partners.show', compact('partner'));
     }
 
+    #method edit digunakan untuk menampilkan form edit data partner
     public function edit(Partner $partner)
     {
         return view('admin.partners.edit', compact('partner'));
     }
 
+    #method update digunakan untuk memperbarui data partner berdasarkan id yang dipilih
     public function update(Request $request, Partner $partner)
     {
-        $request->validate([
-
-            'name'=>'required',
-
-            'logo_url'=>'required'
-
+            $request->validate([
+            'name' => 'required',
+            'logo_url' => 'required|url'
         ]);
 
         $partner->update([
@@ -83,6 +83,7 @@ class PartnerController extends Controller
             ->with('success','Partner berhasil diupdate');
     }
 
+    #method destroy digunakan untuk menghapus data partner berdasarkan id yang dipilih
     public function destroy(Partner $partner)
     {
         $partner->delete();

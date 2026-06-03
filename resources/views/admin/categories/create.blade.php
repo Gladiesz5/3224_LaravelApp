@@ -1,39 +1,56 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('page_title', 'Tambah Kategori')
+@section('page_subtitle', 'Menambahkan kategori event baru')
 
 @section('content')
 
-<div class="max-w-xl mx-auto py-10">
+<div class="max-w-2xl">
 
-    <h1 class="text-3xl font-bold mb-6">
-        Tambah Kategori
-    </h1>
+    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm p-8">
 
-    <form action="{{ route('categories.store') }}"
-        method="POST"
-        class="space-y-6 bg-white p-8 rounded-2xl shadow-md">
+        <form action="{{ route('categories.store') }}"
+            method="POST"
+            class="space-y-6">
 
-        @csrf
+            @csrf
 
-        <div>
+            <div>
 
-            <label class="font-semibold block mb-2">
-                Nama Kategori
-            </label>
+                <label class="block mb-2 font-bold text-slate-700">
+                    Nama Kategori
+                </label>
 
-            <input type="text"
-                name="name"
-                class="w-full border rounded-xl px-4 py-3">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Masukkan nama kategori"
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
 
-        </div>
+            </div>
 
-        <button
-            class="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold">
+            <div class="flex gap-3">
 
-            Simpan
+                <button
+                    type="submit"
+                    class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition">
 
-        </button>
+                    Simpan
 
-    </form>
+                </button>
+
+                <a href="{{ route('categories.index') }}"
+                    class="px-6 py-3 bg-slate-100 rounded-2xl font-bold hover:bg-slate-200 transition">
+
+                    Kembali
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 

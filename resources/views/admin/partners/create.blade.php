@@ -1,42 +1,74 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('page_title', 'Tambah Partner')
+@section('page_subtitle', 'Menambahkan partner baru')
 
 @section('content')
 
-<div class="max-w-xl mx-auto py-10">
+<div class="max-w-2xl">
 
-<h1 class="text-3xl font-bold mb-6">
+    <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm p-8">
 
-Tambah Partner
+        <form
+            action="{{ route('partners.store') }}"
+            method="POST"
+            class="space-y-6">
 
-</h1>
+            @csrf
 
-<form
-action="{{ route('partners.store') }}"
-method="POST"
-class="bg-white p-8 rounded-2xl shadow space-y-6">
+            <!-- Nama Partner -->
+            <div>
 
-@csrf
+                <label class="block mb-2 font-bold text-slate-700">
+                    Nama Partner
+                </label>
 
-<input
-type="text"
-name="name"
-placeholder="Nama Partner"
-class="w-full border rounded-xl px-4 py-3">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Masukkan nama partner"
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
 
-<input
-type="text"
-name="logo_url"
-placeholder="Logo URL"
-class="w-full border rounded-xl px-4 py-3">
+            </div>
 
-<button
-class="bg-indigo-600 text-white px-6 py-3 rounded-xl">
+            <!-- Logo URL -->
+            <div>
 
-Simpan
+                <label class="block mb-2 font-bold text-slate-700">
+                    Logo URL
+                </label>
 
-</button>
+                <input
+                    type="text"
+                    name="logo_url"
+                    placeholder="https://..."
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
 
-</form>
+            </div>
+
+            <!-- Button -->
+            <div class="flex gap-3">
+
+                <button
+                    type="submit"
+                    class="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition">
+
+                    Simpan
+
+                </button>
+
+                <a href="{{ route('partners.index') }}"
+                    class="px-6 py-3 bg-slate-100 rounded-2xl font-bold hover:bg-slate-200 transition">
+
+                    Kembali
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 

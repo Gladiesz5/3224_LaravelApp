@@ -14,6 +14,7 @@ class HomeController extends Controller
     $events = Event::with('category');
 
     // FILTER CATEGORY
+    #jika ada parameter category pada request, maka akan dilakukan filter berdasarkan kategori tersebut.
     if ($request->category) {
 
         $events->whereHas('category', function ($query) use ($request) {
@@ -24,6 +25,7 @@ class HomeController extends Controller
 
     }
 
+    #SEARCH
     return view('welcome', [
 
         'events' => $events->get(),
