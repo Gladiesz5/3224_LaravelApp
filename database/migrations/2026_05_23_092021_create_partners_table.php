@@ -25,7 +25,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    #method down digunakan untuk menghapus tabel 'partners' dari database jika migrasi dibatalkan atau di-rollback.
+    #method down digunakan untuk menghapus tabel 'partners' dari database jika migrasi dibatalkan
     public function down(): void
     {
         Schema::dropIfExists('partners');
