@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class EventController extends Controller
 {
@@ -26,7 +27,8 @@ class EventController extends Controller
         return view('checkout');
     }
 
-    function ticket(){
-        return view('ticket');
-    }
+   public function ticket(Transaction $transaction)
+{
+    return view('ticket', compact('transaction'));
+}
 }
