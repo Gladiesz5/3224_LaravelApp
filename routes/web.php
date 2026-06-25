@@ -94,3 +94,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::resource('admin/categories', CategoryController::class);
 
 Route::resource('admin/partners', PartnerController::class);
+
+Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
