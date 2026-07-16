@@ -1,12 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Partner')
-@section('page_title', 'Kelola Partner')
-@section('page_subtitle', 'Kelola seluruh partner pendukung platform.')
+@section('title', 'Kelola Pengurus')
+@section('page_title', 'Kelola Pengurus')
+@section('page_subtitle', 'Kelola seluruh data pengurus.')
 
 @section('content')
 
-<!-- HEADER -->
 <div class="mb-4 flex justify-between items-center">
 
     <!-- SEARCH -->
@@ -15,7 +14,7 @@
         <input
             type="text"
             name="search"
-            placeholder="Cari partner..."
+            placeholder="Cari pengurus..."
             value="{{ request('search') }}"
             class="px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
 
@@ -30,10 +29,10 @@
     </form>
 
     <!-- BUTTON TAMBAH -->
-    <a href="{{ route('admin.partners.create') }}"
+    <a href="{{ route('admin.penguruses.create') }}"
         class="inline-block px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition">
 
-        + Tambah Partner
+        + Tambah Pengurus
 
     </a>
 
@@ -51,8 +50,10 @@
                 <tr>
 
                     <th class="px-8 py-4">ID</th>
-                    <th class="px-8 py-4">Logo</th>
-                    <th class="px-8 py-4">Partner</th>
+                    <th class="px-8 py-4">Jabatan</th>
+                    <th class="px-8 py-4">Nama</th>
+                    <th class="px-8 py-4">Deskripsi</th>
+                    <th class="px-8 py-4">Gaji</th>
                     <th class="px-8 py-4">Created At</th>
                     <th class="px-8 py-4">Updated At</th>
                     <th class="px-8 py-4">Aksi</th>
@@ -63,63 +64,70 @@
 
             <tbody class="divide-y border-t">
 
-                @forelse($partners as $partner)
+                @forelse($penguruses as $pengurus)
 
                 <tr class="hover:bg-slate-50/50 transition">
 
                     <!-- ID -->
                     <td class="px-8 py-6 font-bold text-slate-400">
 
-                        {{ $partner->id }}
+                        {{ $pengurus->id }}
 
                     </td>
 
-                    <!-- LOGO -->
-                    <td class="px-8 py-6">
-
-                        <div class="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center overflow-hidden">
-
-                            <img
-                                src="{{ $partner->logo_url }}"
-                                alt="{{ $partner->name }}"
-                                class="w-12 h-12 object-contain">
-
-                        </div>
-
-                    </td>
-
-                    <!-- NAMA -->
+                    <!-- Jabatan -->
                     <td class="px-8 py-6">
 
                         <p class="font-black text-slate-800">
 
-                            {{ $partner->name }}
+                            {{ $pengurus->jabatan->name }}
 
                         </p>
 
                     </td>
 
-                    <!-- CREATED -->
-                    <td class="px-8 py-6 text-slate-500">
+                    <!-- Nama -->
+                    <td class="px-8 py-6">
 
-                        {{ $partner->created_at }}
-
-                    </td>
-
-                    <!-- UPDATED -->
-                    <td class="px-8 py-6 text-slate-500">
-
-                        {{ $partner->updated_at }}
+                        {{ $pengurus->name }}
 
                     </td>
 
-                    <!-- AKSI -->
+                    <!-- Deskripsi -->
+                    <td class="px-8 py-6">
+
+                        {{ $pengurus->description }}
+
+                    </td>
+
+                    <!-- Gaji -->
+                    <td class="px-8 py-6">
+
+                        Rp {{ number_format($pengurus->salary,0,',','.') }}
+
+                    </td>
+
+                    <!-- Created -->
+                    <td class="px-8 py-6 text-slate-500">
+
+                        {{ $pengurus->created_at }}
+
+                    </td>
+
+                    <!-- Updated -->
+                    <td class="px-8 py-6 text-slate-500">
+
+                        {{ $pengurus->updated_at }}
+
+                    </td>
+
+                    <!-- Aksi -->
                     <td class="px-8 py-6">
 
                         <div class="flex gap-2">
 
                             <!-- EDIT -->
-                            <a href="{{ route('admin.partners.edit', $partner->id) }}"
+                            <a href="{{ route('admin.penguruses.edit', $pengurus->id) }}"
                                 class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl hover:bg-indigo-600 hover:text-white transition">
 
                                 <svg class="w-5 h-5"
@@ -140,9 +148,9 @@
 
                             <!-- DELETE -->
                             <form
-                                action="{{ route('admin.partners.destroy', $partner->id) }}"
+                                action="{{ route('admin.penguruses.destroy', $pengurus->id) }}"
                                 method="POST"
-                                onsubmit="return confirm('Yakin hapus partner ini?')">
+                                onsubmit="return confirm('Yakin hapus data ini?')">
 
                                 @csrf
                                 @method('DELETE')
@@ -180,10 +188,10 @@
 
                 <tr>
 
-                    <td colspan="6"
+                    <td colspan="8"
                         class="px-8 py-10 text-center text-slate-500">
 
-                        Belum ada partner yang ditambahkan.
+                        Belum ada data pengurus.
 
                     </td>
 

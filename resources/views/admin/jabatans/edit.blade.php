@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('page_title', 'Edit Partner')
-@section('page_subtitle', 'Mengubah data partner')
+@section('page_title', 'Edit Jabatan')
+@section('page_subtitle', 'Mengubah data jabatan')
 
 @section('content')
 
@@ -10,44 +10,27 @@
     <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm p-8">
 
         <form
-            action="{{ route('admin.partners.update', $partner->id) }}"
+            action="{{ route('admin.jabatans.update', $jabatan->id) }}"
             method="POST"
             class="space-y-6">
 
             @csrf
             @method('PUT')
 
-            <!-- Nama Partner -->
             <div>
 
                 <label class="block mb-2 font-bold text-slate-700">
-                    Nama Partner
+                    Nama Jabatan
                 </label>
 
                 <input
                     type="text"
                     name="name"
-                    value="{{ old('name', $partner->name) }}"
+                    value="{{ $jabatan->name }}"
                     class="w-full px-4 py-3 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
 
             </div>
 
-            <!-- Logo URL -->
-            <div>
-
-                <label class="block mb-2 font-bold text-slate-700">
-                    Logo URL
-                </label>
-
-                <input
-                    type="text"
-                    name="logo_url"
-                    value="{{ old('logo_url', $partner->logo_url) }}"
-                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
-
-            </div>
-
-            <!-- Button -->
             <div class="flex gap-3">
 
                 <button
@@ -58,7 +41,7 @@
 
                 </button>
 
-                <a href="{{ route('admin.partners.index') }}"
+                <a href="{{ route('admin.jabatans.index') }}"
                     class="px-6 py-3 bg-slate-100 rounded-2xl font-bold hover:bg-slate-200 transition">
 
                     Kembali

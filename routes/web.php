@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\EventController as EventAdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\Admin\JabatanController;
+use App\Http\Controllers\Admin\PengurusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,30 +72,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::middleware(['auth', 'admin'])->group(function () {
+   Route::middleware(['auth', 'admin'])->group(function () {
 
-        Route::get('/', [DashboardController::class, 'index'])
-            ->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-        Route::get('/dashboard', [DashboardController::class, 'index'])
-            ->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-        Route::resource('events', EventAdminController::class);
+    Route::resource('events', EventAdminController::class);
 
-        Route::get('/transactions', [TransactionController::class, 'index'])
-            ->name('transactions.index');
+    Route::get('/transactions', [TransactionController::class, 'index'])
+        ->name('transactions.index');
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('partners', PartnerController::class);
+
+    // Tambahan
+    Route::resource('jabatans', JabatanController::class);
+    Route::resource('penguruses', PengurusController::class);
     });
 });
-
-/*
-|--------------------------------------------------------------------------
-| CATEGORY & PARTNER
-|--------------------------------------------------------------------------
-*/
-
-Route::resource('admin/categories', CategoryController::class);
-
-Route::resource('admin/partners', PartnerController::class);
 
 Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
 Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
