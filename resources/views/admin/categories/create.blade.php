@@ -9,7 +9,7 @@
 
     <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm p-8">
 
-        <form action="{{ route('categories.store') }}"
+        <form action="{{ route('admin.categories.store') }}"
             method="POST"
             class="space-y-6">
 
@@ -39,7 +39,7 @@
 
                 </button>
 
-                <a href="{{ route('categories.index') }}"
+                <a href="{{ route('admin.categories.index') }}"
                     class="px-6 py-3 bg-slate-100 rounded-2xl font-bold hover:bg-slate-200 transition">
 
                     Kembali

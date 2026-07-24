@@ -6,7 +6,6 @@
 
 @section('content')
 
-<!-- HEADER -->
 <div class="mb-4 flex justify-between items-center">
 
     <!-- SEARCH -->
@@ -30,7 +29,7 @@
     </form>
 
     <!-- BUTTON TAMBAH -->
-    <a href="{{ route('categories.create') }}"
+    <a href="{{ route('admin.categories.create') }}"
         class="inline-block px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition">
 
         + Tambah Kategori
@@ -54,7 +53,7 @@
                     <th class="px-8 py-4">Nama Kategori</th>
                     <th class="px-8 py-4">Created At</th>
                     <th class="px-8 py-4">Updated At</th>
-                    <th class="px-8 py-4">Aksi</th>
+                    <th class="px-8 py-4 text-center">Aksi</th>
 
                 </tr>
 
@@ -64,7 +63,7 @@
 
                 @forelse($categories as $category)
 
-                <tr class="hover:bg-slate-50/50 transition">
+                <tr class="hover:bg-slate-50 transition">
 
                     <!-- ID -->
                     <td class="px-8 py-6 font-bold text-slate-400">
@@ -73,38 +72,38 @@
 
                     </td>
 
-                    <!-- NAMA -->
+                    <!-- Nama -->
                     <td class="px-8 py-6">
 
-                        <p class="font-black text-slate-800">
+                        <span class="font-bold text-slate-700">
 
                             {{ $category->name }}
 
-                        </p>
+                        </span>
 
                     </td>
 
-                    <!-- CREATED -->
+                    <!-- Created -->
                     <td class="px-8 py-6 text-slate-500">
 
                         {{ $category->created_at }}
 
                     </td>
 
-                    <!-- UPDATED -->
+                    <!-- Updated -->
                     <td class="px-8 py-6 text-slate-500">
 
                         {{ $category->updated_at }}
 
                     </td>
 
-                    <!-- AKSI -->
+                    <!-- Action -->
                     <td class="px-8 py-6">
 
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 justify-center">
 
-                            <!-- EDIT -->
-                            <a href="{{ route('categories.edit', $category->id) }}"
+                            <!-- Edit -->
+                            <a href="{{ route('admin.categories.edit', $category->id) }}"
                                 class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl hover:bg-indigo-600 hover:text-white transition">
 
                                 <svg class="w-5 h-5"
@@ -116,18 +115,18 @@
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586">
                                     </path>
 
                                 </svg>
 
                             </a>
 
-                            <!-- DELETE -->
+                            <!-- Delete -->
                             <form
-                                action="{{ route('categories.destroy', $category->id) }}"
+                                action="{{ route('admin.categories.destroy', $category->id) }}"
                                 method="POST"
-                                onsubmit="return confirm('Yakin hapus kategori ini?')">
+                                onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
 
                                 @csrf
                                 @method('DELETE')
@@ -136,8 +135,7 @@
                                     type="submit"
                                     class="p-2.5 bg-rose-50 text-rose-600 rounded-xl hover:bg-rose-600 hover:text-white transition">
 
-                                    <svg
-                                        class="w-5 h-5"
+                                    <svg class="w-5 h-5"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24">
