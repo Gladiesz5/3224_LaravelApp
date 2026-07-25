@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\RatingController;
+
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as EventAdminController;
@@ -26,6 +28,19 @@ Route::get('/events/{event}', [EventController::class, 'show'])
 
 Route::get('/my-ticket/{transaction}', [EventController::class, 'ticket'])
     ->name('ticket');
+
+/*
+|--------------------------------------------------------------------------
+| RATING & REVIEW
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/ratings', [RatingController::class, 'store'])
+        ->name('ratings.store');
+
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -72,29 +87,39 @@ Route::prefix('admin')->name('admin.')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-   Route::middleware(['auth', 'admin'])->group(function () {
+    Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])
-        ->name('dashboard');
+        Route::get('/', [DashboardController::class, 'index'])
+            ->name('dashboard');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+            ->name('dashboard');
 
-    Route::resource('events', EventAdminController::class);
+        Route::resource('events', EventAdminController::class);
 
-    Route::get('/transactions', [TransactionController::class, 'index'])
-        ->name('transactions.index');
+        Route::get('/transactions', [TransactionController::class, 'index'])
+            ->name('transactions.index');
 
-    Route::resource('categories', CategoryController::class);
-    Route::resource('partners', PartnerController::class);
+        Route::resource('categories', CategoryController::class);
 
-    // Tambahan
-    Route::resource('jabatans', JabatanController::class);
-    Route::resource('penguruses', PengurusController::class);
+        Route::resource('partners', PartnerController::class);
+
+        Route::resource('jabatans', JabatanController::class);
+
+        Route::resource('penguruses', PengurusController::class);
     });
 });
 
-Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
-Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
+/*
+|--------------------------------------------------------------------------
+| PAYMENT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/payment/{order_id}', [CheckoutController::class, 'payment'])
+    ->name('checkout.payment');
+
+Route::get('/success/{order_id}', [CheckoutController::class, 'success'])
+    ->name('checkout.success');
 
 Route::post('/midtrans/callback', [\App\Http\Controllers\MidtransWebhookController::class, 'handle']);

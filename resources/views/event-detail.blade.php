@@ -252,7 +252,151 @@ use Illuminate\Support\Facades\Storage;
         </div>
 
     </div>
+<!-- Rating Event -->
+<div class="bg-white rounded-3xl shadow p-6 mt-8">
 
+    <h3 class="text-2xl font-bold mb-4">
+        Rating Event
+    </h3>
+
+    <div class="flex items-center gap-3">
+
+        <span class="text-yellow-500 text-3xl">
+            ⭐
+        </span>
+
+        <span class="text-2xl font-bold">
+            {{ $averageRating ?? 0 }}/5
+        </span>
+
+        <span class="text-slate-500">
+            ({{ $ratings->count() }} Rating)
+        </span>
+
+    </div>
+
+</div>
+@auth
+
+<div class="bg-white rounded-3xl shadow p-6 mt-6">
+
+    <h3 class="text-2xl font-bold mb-5">
+        Berikan Rating
+    </h3>
+
+    <form action="{{ route('ratings.store') }}" method="POST">
+
+        @csrf
+
+        <input
+            type="hidden"
+            name="event_id"
+            value="{{ $event->id }}">
+
+        <div class="mb-4">
+
+            <label class="font-semibold">
+                Rating
+            </label>
+
+            <select
+                name="rating"
+                class="w-full border rounded-xl p-3 mt-2">
+
+                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                <option value="4">⭐⭐⭐⭐ (4)</option>
+                <option value="3">⭐⭐⭐ (3)</option>
+                <option value="2">⭐⭐ (2)</option>
+                <option value="1">⭐ (1)</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-5">
+
+            <label class="font-semibold">
+                Review
+            </label>
+
+            <textarea
+                name="review"
+                rows="4"
+                class="w-full border rounded-xl p-3 mt-2"
+                placeholder="Bagaimana pendapatmu tentang event ini?"></textarea>
+
+        </div>
+
+        <button
+            type="submit"
+            class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-indigo-700">
+
+            Kirim Rating
+
+        </button>
+
+    </form>
+
+</div>
+
+@else
+
+<div class="bg-yellow-50 border border-yellow-200 rounded-3xl p-5 mt-6">
+
+    <p>
+        Silakan <b>login</b> terlebih dahulu untuk memberikan rating.
+    </p>
+
+</div>
+
+@endauth
+<div class="bg-white rounded-3xl shadow p-6 mt-6">
+
+    <h3 class="text-2xl font-bold mb-6">
+        Review Pengunjung
+    </h3>
+
+    @forelse($ratings as $rating)
+
+        <div class="border-b py-4">
+
+            <div class="flex justify-between">
+
+                <h4 class="font-bold">
+                    {{ $rating->user->name }}
+                </h4>
+
+                <span class="text-yellow-500">
+
+                    @for($i=1;$i<=$rating->rating;$i++)
+                        ⭐
+                    @endfor
+
+                </span>
+
+            </div>
+
+            @if($rating->review)
+
+                <p class="text-slate-600 mt-2">
+                    {{ $rating->review }}
+                </p>
+
+            @endif
+
+        </div>
+
+    @empty
+
+        <p class="text-slate-500">
+
+            Belum ada review untuk event ini.
+
+        </p>
+
+    @endforelse
+
+</div>
 </main>
 
 @endsection
